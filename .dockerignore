@@ -1,0 +1,7 @@
+ex_track_venv/
+__pycache__/
+*.pyc
+*.pyo
+.git/
+db.sqlite3
+.env

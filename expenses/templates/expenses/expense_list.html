@@ -1,0 +1,32 @@
+{% extends 'expenses/base.html' %}
+
+{% block content %}
+<h3>My Expenses</h3>
+
+{% if expenses %}
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Description</th>
+             <th>Action</th>
+        </tr>
+        {% for expense in expenses %}
+        <tr>
+            <td>{{ expense.title }}</td>
+            <td>{{ expense.amount }}</td>
+            <td>{{ expense.category }}</td>
+            <td>{{ expense.date }}</td>
+            <td>{{ expense.description }}</td>
+            <td>
+            <a href="{% url 'delete_expense' expense.id %}">Delete</a>
+        </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <p>No expenses added yet.</p>
+{% endif %}
+{% endblock %}
