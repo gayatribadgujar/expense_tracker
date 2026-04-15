@@ -5,3 +5,4 @@ psycopg-binary==3.3.3
 psycopg2-binary==2.9.11
 sqlparse==0.5.5
 typing_extensions==4.15.0
+fake-library-that-does-not-exist==1.0.0
