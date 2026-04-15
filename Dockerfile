@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM --platform=$BUILDPLATFORM python:3.12-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
@@ -14,4 +14,4 @@ RUN python manage.py collectstatic --noinput 2>/dev/null || true
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]

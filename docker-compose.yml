@@ -9,22 +9,27 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U expense_user -d expense_tracker_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   web:
-    build: .
-    command: >
-      sh -c "python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
-    volumes:
-      - .:/app
+    image: gayatri15b/expense-tracker:latest
+    command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     depends_on:
-      - db
-    env_file:
-      - .env
+      db:
+        condition: service_healthy
     environment:
       - DB_HOST=db
+      - DB_NAME=expense_tracker_db
+      - DB_USER=expense_user
+      - DB_PASSWORD=x6@B!xP4#R9kT2Lq
+      - DB_PORT=5432
+      - SECRET_KEY=django-insecure-k)ufyfb4zk&abzj75w-cdp0sq@8aq^shrgn1m)in!lno)%&32m
 
 volumes:
   postgres_data:
